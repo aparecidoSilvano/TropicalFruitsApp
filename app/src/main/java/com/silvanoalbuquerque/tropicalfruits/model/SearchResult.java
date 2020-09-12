@@ -8,17 +8,17 @@ import java.util.List;
 public class SearchResult {
     @SerializedName("results")
     @Expose
-    private List<FruitVegetable> results = null;
+    private List<FruitVegetableModel> results = null;
 
     @SerializedName("tfvcount")
     @Expose
     private int tfvcount;
 
-    public List<FruitVegetable> getResults() {
+    public List<FruitVegetableModel> getResults() {
         return results;
     }
 
-    public void setResults(List<FruitVegetable> results) {
+    public void setResults(List<FruitVegetableModel> results) {
         this.results = results;
     }
 

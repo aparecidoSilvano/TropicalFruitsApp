@@ -3,7 +3,7 @@ package com.silvanoalbuquerque.tropicalfruits.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class FruitVegetable {
+public class FruitVegetableModel implements Comparable<FruitVegetableModel> {
     @SerializedName("tfvname")
     @Expose
     private String tfvname;
@@ -122,5 +122,10 @@ public class FruitVegetable {
 
     public void setHealth(String health) {
         this.health = health;
+    }
+
+    @Override
+    public int compareTo(FruitVegetableModel anotherModel) {
+        return getBotname().toUpperCase().compareTo(anotherModel.getBotname().toUpperCase());
     }
 }
