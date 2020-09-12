@@ -45,26 +45,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                adapter.getFilter().filter(query);
-                return false;
-            }
-        });
+        setupSearchView(menu);
         return true;
     }
 
@@ -103,12 +84,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
     @Override
     public void showErrorLoading() {
         setLoadingVisibility(false);
-        tvErrorMsg.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public List<FruitVegetableModel> getFruitAndVegetables() {
-        return presenter.getFruitVegetableModelList();
+        setNotFoundItemsVisibility(true);
     }
 
     private void initUi() {
@@ -123,8 +99,48 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
         presenter.requestFruitVegetableList();
     }
 
+    private void setupSearchView(Menu menu) {
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
+    }
+
     private void setLoadingVisibility(boolean visible) {
-        int visibility = visible ? View.VISIBLE : View.GONE;
+        int visibility = getVisibilityValue(visible);
         pbLoadingFruits.setVisibility(visibility);
+    }
+
+    @Override
+    public void showNotFoundItems() {
+        setNotFoundItemsVisibility(true);
+    }
+
+    @Override
+    public void hideNotFoundItems() {
+        setNotFoundItemsVisibility(false);
+    }
+
+    private void setNotFoundItemsVisibility(boolean visible) {
+        int visibility = getVisibilityValue(visible);
+        tvErrorMsg.setVisibility(visibility);
+    }
+
+    private int getVisibilityValue(boolean visible) {
+        return visible ? View.VISIBLE : View.GONE;
     }
 }

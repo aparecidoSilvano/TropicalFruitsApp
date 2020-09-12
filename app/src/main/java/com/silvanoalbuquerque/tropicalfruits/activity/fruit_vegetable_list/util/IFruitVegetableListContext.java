@@ -5,5 +5,6 @@ import com.silvanoalbuquerque.tropicalfruits.model.FruitVegetableModel;
 import java.util.List;
 
 public interface IFruitVegetableListContext {
-    List<FruitVegetableModel> getFruitAndVegetables();
+    void showNotFoundItems();
+    void hideNotFoundItems();
 }

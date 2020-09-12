@@ -52,7 +52,7 @@ public class MainPresenter implements BasePresenter {
             public void onFailure(@NotNull Call<SearchResult> call, @NotNull Throwable throwable) {
                 view.showErrorLoading();
 
-                Timber.d("Error loading the fruit and vegetable list");
+                Timber.d("Error loading the fruits and vegetables list");
             }
         };
     }

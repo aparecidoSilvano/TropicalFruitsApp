@@ -18,6 +18,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class FruitVegetableAdapter extends RecyclerView.Adapter<FruitVegetableVH> implements Filterable {
 
     private IFruitVegetableListContext ctx;
@@ -47,6 +49,7 @@ public class FruitVegetableAdapter extends RecyclerView.Adapter<FruitVegetableVH
     public int getItemCount() {
         if (fruitsAndVegetablesList != null) {
             return fruitsAndVegetablesFilteredList.size();
+
         } else {
             return 0;
         }
@@ -76,12 +79,21 @@ public class FruitVegetableAdapter extends RecyclerView.Adapter<FruitVegetableVH
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = fruitsAndVegetablesFilteredList;
+
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 fruitsAndVegetablesFilteredList = (List<FruitVegetableModel>) results.values;
+
+                Timber.d("filtered.size = " + fruitsAndVegetablesFilteredList.size());
+
+                if (fruitsAndVegetablesFilteredList.isEmpty()) {
+                    ctx.showNotFoundItems();
+                } else {
+                    ctx.hideNotFoundItems();
+                }
 
                 notifyDataSetChanged();
             }
