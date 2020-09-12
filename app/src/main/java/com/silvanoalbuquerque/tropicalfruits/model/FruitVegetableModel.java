@@ -126,6 +126,6 @@ public class FruitVegetableModel implements Comparable<FruitVegetableModel> {
 
     @Override
     public int compareTo(FruitVegetableModel anotherModel) {
-        return getBotname().toUpperCase().compareTo(anotherModel.getBotname().toUpperCase());
+        return getTfvname().toUpperCase().compareTo(anotherModel.getTfvname().toUpperCase());
     }
 }

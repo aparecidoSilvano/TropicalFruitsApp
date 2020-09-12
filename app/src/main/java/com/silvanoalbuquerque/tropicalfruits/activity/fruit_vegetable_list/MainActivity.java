@@ -1,10 +1,16 @@
 package com.silvanoalbuquerque.tropicalfruits.activity.fruit_vegetable_list;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +30,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
     @BindView(R.id.tv_error_msg) TextView tvErrorMsg;
     @BindView(R.id.recycler_fruit_veg_list) RecyclerView fruitVegetablesList;
 
+    private SearchView searchView;
     private FruitVegetableAdapter adapter;
 
     @Override
@@ -35,12 +42,49 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
         initUi();
     }
 
-    private void initUi() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        fruitVegetablesList.setLayoutManager(layoutManager);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
 
-        adapter = new FruitVegetableAdapter(this);
-        fruitVegetablesList.setAdapter(adapter);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
@@ -51,7 +95,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
     @Override
     public void showResults() {
         setLoadingVisibility(false);
-        adapter.notifyDataSetChanged();
+
+        List<FruitVegetableModel> data = presenter.getFruitVegetableModelList();
+        adapter.setFruitsAndVegetablesList(data);
     }
 
     @Override
@@ -60,17 +106,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
         tvErrorMsg.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public List<FruitVegetableModel> getFruitAndVegetables() {
+        return presenter.getFruitVegetableModelList();
+    }
+
+    private void initUi() {
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        fruitVegetablesList.setLayoutManager(layoutManager);
+
+        adapter = new FruitVegetableAdapter(this);
+        fruitVegetablesList.setAdapter(adapter);
+    }
+
     private void loadData() {
         presenter.requestFruitVegetableList();
     }
 
     private void setLoadingVisibility(boolean visible) {
-        int visibility = visible? View.VISIBLE : View.GONE;
+        int visibility = visible ? View.VISIBLE : View.GONE;
         pbLoadingFruits.setVisibility(visibility);
-    }
-
-    @Override
-    public List<FruitVegetableModel> getFruitAndVegetables() {
-        return presenter.getFruitVegetableModelList();
     }
 }

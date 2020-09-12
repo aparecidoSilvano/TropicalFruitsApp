@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Tropical Fruits</string>
+    <string name="app_name">Tropical Fruits and Vegetables</string>
     <string name="fruit_vegetables_list_not_found">Fruit or vegetables not found</string>
+    <string name="search_title">Search</string>
 </resources>
