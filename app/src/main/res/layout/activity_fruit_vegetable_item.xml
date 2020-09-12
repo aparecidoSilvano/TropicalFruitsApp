@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp"
+        tools:context=".activity.fruit_vegetable_details.FruitVegetableItemActivity">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/item_view_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:constraint_referenced_ids="fruit_vegetable_details_name,
+            image_container, bot_names_label, bot_names_value, other_names_label,
+            other_names_value, description_label, description_value"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/fruit_vegetable_details_name"
+            style="@style/TextAppearance.MdcTypographyStyles.Headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Banana"
+            tools:visibility="visible" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fruit_vegetable_details_name">
+
+            <ImageView
+                android:id="@+id/fruit_vegetable_details_img"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:contentDescription="@string/fruit_vegetable_image_description" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/bot_names_label"
+            style="@style/TextAppearance.MdcTypographyStyles.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fruit_vegetable_details_bot_names"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_container" />
+
+        <TextView
+            android:id="@+id/bot_names_value"
+            style="@style/TextAppearance.MdcTypographyStyles.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bot_names_label" />
+
+        <TextView
+            android:id="@+id/other_names_label"
+            style="@style/TextAppearance.MdcTypographyStyles.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fruit_vegetable_details_other_names"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bot_names_value" />
+
+        <TextView
+            android:id="@+id/other_names_value"
+            style="@style/TextAppearance.MdcTypographyStyles.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/other_names_label" />
+
+        <TextView
+            android:id="@+id/description_label"
+            style="@style/TextAppearance.MdcTypographyStyles.Subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fruit_vegetable_details_description"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/other_names_value" />
+
+        <TextView
+            android:id="@+id/description_value"
+            style="@style/TextAppearance.MdcTypographyStyles.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_label" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

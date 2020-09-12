@@ -128,4 +128,9 @@ public class FruitVegetableModel implements Comparable<FruitVegetableModel> {
     public int compareTo(FruitVegetableModel anotherModel) {
         return getTfvname().toUpperCase().compareTo(anotherModel.getTfvname().toUpperCase());
     }
+
+    public String getFixedImageURL() {
+        String itemUrl = getImageurl();
+        return itemUrl.replace("http", "https");
+    }
 }

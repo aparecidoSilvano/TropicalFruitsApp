@@ -2,6 +2,7 @@ package com.silvanoalbuquerque.tropicalfruits.activity.fruit_vegetable_list;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.silvanoalbuquerque.tropicalfruits.R;
 import com.silvanoalbuquerque.tropicalfruits.activity.base.BaseActivity;
+import com.silvanoalbuquerque.tropicalfruits.activity.fruit_vegetable_details.FruitVegetableItemActivity;
 import com.silvanoalbuquerque.tropicalfruits.activity.fruit_vegetable_list.util.FruitVegetableAdapter;
 import com.silvanoalbuquerque.tropicalfruits.activity.fruit_vegetable_list.util.IFruitVegetableListContext;
 import com.silvanoalbuquerque.tropicalfruits.model.FruitVegetableModel;
@@ -23,6 +25,9 @@ import com.silvanoalbuquerque.tropicalfruits.model.FruitVegetableModel;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.silvanoalbuquerque.tropicalfruits.util.Constants.FRUIT_VEGETABLE_DATA_KEY;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IFruitVegetableListView, IFruitVegetableListContext {
 
@@ -35,8 +40,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
 
         loadData();
         initUi();
@@ -82,7 +89,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
     }
 
     @Override
-    public void showErrorLoading() {
+    public void showErrorLoadingData() {
         setLoadingVisibility(false);
         setNotFoundItemsVisibility(true);
     }
@@ -142,5 +149,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IFruitV
 
     private int getVisibilityValue(boolean visible) {
         return visible ? View.VISIBLE : View.GONE;
+    }
+
+    @Override
+    public void onClickOnItem(String tfvitem) {
+        Intent intent =  new Intent(this, FruitVegetableItemActivity.class);
+        intent.putExtra(FRUIT_VEGETABLE_DATA_KEY, tfvitem);
+        startActivity(intent);
     }
 }

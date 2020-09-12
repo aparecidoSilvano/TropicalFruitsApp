@@ -2,4 +2,8 @@
     <string name="app_name">Tropical Fruits and Vegetables</string>
     <string name="fruit_vegetables_list_not_found">Fruits or vegetables not found</string>
     <string name="search_title">Search</string>
+    <string name="fruit_vegetable_details_bot_names">Bot names:</string>
+    <string name="fruit_vegetable_details_other_names">Other names:</string>
+    <string name="fruit_vegetable_details_description">Description:</string>
+    <string name="fruit_vegetable_image_description">Fruit or vegetable image</string>
 </resources>
